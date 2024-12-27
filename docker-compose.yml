@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  qr:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/var/www/app/qr
+      - ./static:/var/www/app/qr/static
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_DEBUG=1
+    command: python app.py
+    networks:
+      - nginx-network
+
+networks:
+  nginx-network:
+    name: nginx-network
