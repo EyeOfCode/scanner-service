@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   qr:
     build: .
@@ -12,9 +10,12 @@ services:
       - FLASK_APP=app.py
       - FLASK_DEBUG=1
     command: python app.py
-    networks:
-      - nginx-network
 
-networks:
-  nginx-network:
-    name: nginx-network
+  web:
+    image: nginx
+    container_name: nginx_html
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    restart: always
